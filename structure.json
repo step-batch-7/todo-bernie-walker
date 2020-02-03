@@ -1,0 +1,12 @@
+{
+  "new Date().getTime()": {
+    "title": "heading of the list",
+    "items": [
+      {
+        "id": "index in array",
+        "task": "description of the task",
+        "done": "true or false"
+      }
+    ]
+  }
+}

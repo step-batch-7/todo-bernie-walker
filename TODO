@@ -1,0 +1,6 @@
+* design a html template to display each list in the ToDo
+* design a html page to display all lists
+* add a addNew button and allow to add a new list
+* on click of individual list allow user to view list
+* in the individual list allow mark and delete button
+* add confirmation prompt for delete button 
