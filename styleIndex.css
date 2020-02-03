@@ -1,0 +1,33 @@
+.heading {
+  border: 1px solid;
+  padding: 0.25%;
+  margin: auto;
+}
+
+.todo-logo {
+  border: 1px solid;
+  font-weight: 100;
+}
+
+.new-list {
+  border: 1px solid;
+  padding: 0.15%;
+  margin: 1% auto;
+}
+
+#new-title {
+  width: 96%;
+  height: 34px;
+  font-size: 1.4vw;
+}
+
+.add-new-button {
+  margin: auto;
+  width: 3.2%;
+  height: 36px;
+}
+
+.task-list {
+  border: 1px solid;
+  padding: 0.15%;
+}
