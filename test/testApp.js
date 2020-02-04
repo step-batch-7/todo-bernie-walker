@@ -8,7 +8,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '627')
+        .expect('Content-Length', '675')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
@@ -38,10 +38,10 @@ describe('serveStatic', function() {
     });
   });
 
-  context('GET js', function() {
-    it.skip('should respond with js file', function(done) {
+  context('GET xmlRequests.js', function() {
+    it('should respond with js file', function(done) {
       request(generateResponse)
-        .get('/js/')
+        .get('/js/xmlRequests.js')
         .expect(200)
         .expect('Content-Type', 'application/javascript')
         .end(err => {
@@ -52,6 +52,22 @@ describe('serveStatic', function() {
           done();
         });
     });
+  });
+});
+
+describe('GET /taskList', function() {
+  it('should respond with taskList json', function(done) {
+    request(generateResponse)
+      .get('/taskList')
+      .expect(200)
+      .expect('Content-Type', 'application/json')
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
   });
 });
 
