@@ -18,7 +18,7 @@
   </body>
 </html>
 
-<div style="display: none;" id="template">
+<div style="display: none" id="topTemplate">
   <div class="task">
     <div class="task-top">
       <spawn class="task-title">{_title_}</spawn>
@@ -26,20 +26,22 @@
         dlt
       </button>
     </div>
-
     <div class="items">
-      <spawn class="item-title {_done_}">{_item-title_}</spawn>
-      <button class="item-mark" id="mark_{_id_}_{_itmId_}">
-        mrk
-      </button>
-      <button class="item-delete" id="deleteItm_{_id_}_{_itmId_}">
-        dlt
-      </button>
+      {_innerHtml_}
     </div>
-
     <div class="new-item">
       <input type="text" class="new-item-title" id="itm-ip-{_id_}" />
       <button class="add-new-item-btn" id="itm-add-{_id_}">add</button>
     </div>
   </div>
+</div>
+
+<div style="display: none" id="innerTemplate">
+  <spawn class="item-title {_done_}">{_item-title_}</spawn>
+  <button class="item-mark" id="mark_{_itmId_}">
+    mrk
+  </button>
+  <button class="item-delete" id="deleteItm_{_itmId_}">
+    dlt
+  </button>
 </div>

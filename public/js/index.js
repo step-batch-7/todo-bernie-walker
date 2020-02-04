@@ -1,12 +1,27 @@
 const CODE_OK = 200;
 
+const modifyItems = function(item) {
+  const innerTemplate = document.querySelector('#innerTemplate').innerHTML;
+  const { itemId, done, task } = item;
+  const doneClass = done ? 'done' : '';
+  return innerTemplate
+    .replace(/{_itmId_}/g, itemId)
+    .replace(/{_item-title_}/, task)
+    .replace(/{_done_}/, doneClass);
+};
+
 const createHtml = function(taskList) {
-  const template = document.querySelector('#template').innerHTML;
+  const template = document.querySelector('#topTemplate').innerHTML;
   const html = taskList.map(list => {
     const { listId, title } = list;
-    return template.replace(/{_id_}/g, listId).replace(/{_title_}/, title);
-  });
+    let { items } = list;
+    items = items.map(modifyItems);
 
+    return template
+      .replace(/{_id_}/g, listId)
+      .replace(/{_title_}/, title)
+      .replace(/{_innerHtml_}/, items.join('\n'));
+  });
   return html.join('\n');
 };
 

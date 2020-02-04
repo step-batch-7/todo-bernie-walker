@@ -139,7 +139,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '1242')
+        .expect('Content-Length', '1275')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
