@@ -71,7 +71,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '699')
+        .expect('Content-Length', '698')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
@@ -104,7 +104,7 @@ describe('serveStatic', function() {
   context('GET xmlRequests.js', function() {
     it('should respond with js file', function(done) {
       request(generateResponse)
-        .get('/js/xmlRequests.js')
+        .get('/js/index.js')
         .expect(200)
         .expect('Content-Type', 'application/javascript')
         .end(err => {

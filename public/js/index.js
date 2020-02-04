@@ -16,7 +16,7 @@ const addTaskListToBody = function(taskList) {
   taskListArea.innerHTML = taskListHtml;
 };
 
-const addNewTitle = function() {
+const addNewTaskToList = function() {
   const title = document.querySelector('#new-title').value;
   document.querySelector('#new-title').value = '';
   const addTitleReq = new XMLHttpRequest();
