@@ -15,20 +15,9 @@
       }
     ]
   },
-  "1580706449867": {
-    "listId": "1580706449867",
-    "title": "creat server",
-    "items": [
-      {
-        "itemId": "0",
-        "task": "add tests for a handler",
-        "done": "false"
-      },
-      {
-        "itemId": "1",
-        "task": "add the handlers",
-        "done": "false"
-      }
-    ]
+  "1580812169445": {
+    "listId": 1580812169445,
+    "title": "bro this is me",
+    "items": []
   }
 }

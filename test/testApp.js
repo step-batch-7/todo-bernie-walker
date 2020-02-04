@@ -18,7 +18,7 @@ describe('POST /taskListAddNew', function() {
     sandbox.restore();
   });
 
-  it('respond with new task list', function(done) {
+  it('respond with updated task list', function(done) {
     request(generateResponse)
       .post('/taskListAddNew')
       .send('title=sampleText')
@@ -26,6 +26,37 @@ describe('POST /taskListAddNew', function() {
       .expect('Content-Type', 'application/json')
       .expect('Content-Length', '66')
       .expect(/"title":"sampleText"/)
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
+
+describe('DELETE /delete_xxx', function() {
+  before(function() {
+    let FAKE_DATA = { 123: { listsId: 123, title: 'helloWorld' } };
+    const writeToFake = (path, toWrite) => {
+      FAKE_DATA = JSON.parse(toWrite);
+    };
+    sandbox.replace(fs, 'writeFileSync', writeToFake);
+    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    sandbox.replace(fs, 'readFileSync', fakeReader);
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it('should respond with the updated task list', function(done) {
+    request(generateResponse)
+      .delete('/delete_123')
+      .expect(200)
+      .expect('Content-Type', 'application/json')
+      .expect('Content-Length', '2')
       .end(err => {
         if (err) {
           done(err);
