@@ -16,6 +16,32 @@ const addTaskListToBody = function(taskList) {
   taskListArea.innerHTML = taskListHtml;
 };
 
+const addNewTitle = function() {
+  const title = document.querySelector('#new-title').value;
+  document.querySelector('#new-title').value = '';
+  const addTitleReq = new XMLHttpRequest();
+
+  addTitleReq.onerror = function() {
+    document.body.innerHTML = 'error while processing please reload';
+  };
+
+  addTitleReq.onload = function() {
+    if (addTitleReq.status === codeOk) {
+      addTaskListToBody(addTitleReq.response);
+      return;
+    }
+
+    document.body.innerHTML = 'file not found';
+  };
+
+  addTitleReq.open('POST', '/taskListAddNew');
+  addTitleReq.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
+  addTitleReq.send(`title=${title}`);
+};
+
 const loadTaskList = function() {
   const codeOk = 200;
   const taskRequest = new XMLHttpRequest();

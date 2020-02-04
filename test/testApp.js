@@ -1,5 +1,68 @@
 const request = require('supertest');
+const fs = require('fs');
+const sandbox = require('sinon').createSandbox();
 const { generateResponse } = require('../lib/handlers.js');
+
+describe('POST /taskListAddNew', function() {
+  before(function() {
+    let FAKE_DATA = { 123: { listsId: 123, title: 'helloWorld' } };
+    const writeToFake = (path, toWrite) => {
+      FAKE_DATA = JSON.parse(toWrite);
+    };
+    sandbox.replace(fs, 'writeFileSync', writeToFake);
+    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    sandbox.replace(fs, 'readFileSync', fakeReader);
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it('respond with new task list', function(done) {
+    request(generateResponse)
+      .post('/taskListAddNew')
+      .send('title=sampleText')
+      .expect(200)
+      .expect('Content-Type', 'application/json')
+      .expect('Content-Length', '66')
+      .expect(/"title":"sampleText"/)
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
+
+describe('GET /taskList', function() {
+  before(function() {
+    const FAKE_DATA = { 123: { listsId: 123, title: 'helloWorld' } };
+    const fakeFileReader = sandbox.stub(fs, 'readFileSync');
+    fakeFileReader.returns(JSON.stringify(FAKE_DATA));
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it('should respond with taskList json', function(done) {
+    request(generateResponse)
+      .get('/taskList')
+      .expect(200)
+      .expect('Content-Type', 'application/json')
+      .expect('Content-Length', '24')
+      .expect(/helloWorld/)
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
 
 describe('serveStatic', function() {
   context('GET /', function() {
@@ -8,7 +71,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '675')
+        .expect('Content-Length', '699')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
@@ -52,22 +115,6 @@ describe('serveStatic', function() {
           done();
         });
     });
-  });
-});
-
-describe('GET /taskList', function() {
-  it('should respond with taskList json', function(done) {
-    request(generateResponse)
-      .get('/taskList')
-      .expect(200)
-      .expect('Content-Type', 'application/json')
-      .end(err => {
-        if (err) {
-          done(err);
-          return;
-        }
-        done();
-      });
   });
 });
 
