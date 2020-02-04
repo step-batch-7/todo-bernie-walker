@@ -10,15 +10,36 @@
     <h1 class="heading"><img alt="lg" class="todo-logo" /> ToDo</h1>
 
     <div class="new-list">
-      <input type="text" id="new-title" />
+      <input type="text" class="new-title" />
       <button class="add-new-button" onclick="addNewTaskToList()">add</button>
     </div>
 
-    <div class="task-list">
-      <div class="item" id="click_12345">
-        sample todo task. please ignore the styling. this is a prototype.
-        <button class="item-delete" id="delete_12345">dlt</button>
-      </div>
-    </div>
+    <div class="task-list"></div>
   </body>
 </html>
+
+<div style="display: none;" id="template">
+  <div class="task">
+    <div class="task-top">
+      <spawn class="task-title">{_title_}</spawn>
+      <button class="task-delete" id="delete_{_id_}" onclick="deleteTask(this)">
+        dlt
+      </button>
+    </div>
+
+    <div class="items">
+      <spawn class="item-title {_done_}">{_item-title_}</spawn>
+      <button class="item-mark" id="mark_{_id_}_{_itmId_}">
+        mrk
+      </button>
+      <button class="item-delete" id="deleteItm_{_id_}_{_itmId_}">
+        dlt
+      </button>
+    </div>
+
+    <div class="new-item">
+      <input type="text" class="new-item-title" id="itm-ip-{_id_}" />
+      <button class="add-new-item-btn" id="itm-add-{_id_}">add</button>
+    </div>
+  </div>
+</div>

@@ -1,19 +1,17 @@
 const CODE_OK = 200;
 
 const createHtml = function(taskList) {
+  const template = document.querySelector('#template').innerHTML;
   const html = taskList.map(list => {
     const { id, title } = list;
-    return `<div class="item" id="click_${id}">
-              ${title}
-              <button class="item-delete" id="delete_${id}" onclick="deleteTask(this)">dlt</button>
-            </div>`;
+    return template.replace(/{_id_}/g, id).replace(/{_title_}/, title);
   });
 
   return html.join('\n');
 };
 
 const addTaskListToBody = function(taskList) {
-  const taskListArea = document.querySelector('div.task-list');
+  const taskListArea = document.querySelector('.task-list');
   const taskListHtml = createHtml(JSON.parse(taskList));
   taskListArea.innerHTML = taskListHtml;
 };
@@ -36,8 +34,8 @@ const deleteTask = function(clickedOn) {
 };
 
 const addNewTaskToList = function() {
-  const title = document.querySelector('#new-title').value;
-  document.querySelector('#new-title').value = '';
+  const title = document.querySelector('.new-title').value;
+  document.querySelector('.new-title').value = '';
   const addTaskReq = new XMLHttpRequest();
 
   addTaskReq.onerror = function() {

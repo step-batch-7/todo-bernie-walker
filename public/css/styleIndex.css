@@ -16,7 +16,7 @@
   display: flex;
 }
 
-#new-title {
+.new-title {
   width: 96%;
   height: 34px;
   font-size: 1.4vw;
@@ -30,19 +30,74 @@
 .task-list {
   border: 1px solid;
   padding: 0.15%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.item {
+.task {
   border: 1px solid;
   padding: 0.2%;
   margin: 0.2% auto;
+  width: 48%;
   letter-spacing: 0.05vw;
   font-size: 1.6vw;
 }
 
+.task-top {
+  border: 1px solid;
+  padding: 0.3%;
+}
+
+.task-title {
+  display: inline-block;
+  width: 94%;
+  font-size: 2vw;
+}
+
+.task-delete {
+  width: 4%;
+  padding: 0.3%;
+}
+
+.new-item {
+  border: 1px solid;
+  padding: 0.15%;
+  margin: 1% auto;
+  display: flex;
+}
+
+.new-item-title {
+  width: 93%;
+  height: 34px;
+  font-size: 1.4vw;
+}
+
+.add-new-item-btn {
+  margin-left: 0.1%;
+  width: 5.8%;
+  height: 40px;
+}
+
+.items {
+  border: 1px solid;
+  padding: 0.3%;
+  margin-top: 0.3%;
+}
+
+.item-title {
+  display: inline-block;
+  width: 88.9%;
+}
+
+.done {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  text-decoration: line-through rgba(228, 126, 42, 0.822);
+}
+
+.item-mark,
 .item-delete {
-  position: absolute;
-  right: 1%;
   width: 4%;
   padding: 0.3%;
 }
