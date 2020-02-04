@@ -6,12 +6,12 @@
       {
         "itemId": "0",
         "task": "create main page",
-        "done": "true"
+        "done": true
       },
       {
         "itemId": "1",
         "task": "style main page",
-        "done": "false"
+        "done": false
       }
     ]
   },
