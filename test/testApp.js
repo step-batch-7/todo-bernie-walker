@@ -5,7 +5,19 @@ const { generateResponse } = require('../lib/handlers.js');
 
 describe('POST /taskListAddNew', function() {
   before(function() {
-    let FAKE_DATA = { 123: { listsId: 123, title: 'helloWorld' } };
+    let FAKE_DATA = {
+      123: {
+        listId: 123,
+        title: 'helloWorld',
+        items: [
+          {
+            itemId: '0',
+            task: 'create main page',
+            done: 'true'
+          }
+        ]
+      }
+    };
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
@@ -24,7 +36,7 @@ describe('POST /taskListAddNew', function() {
       .send('title=sampleText')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '66')
+      .expect('Content-Length', '163')
       .expect(/"title":"sampleText"/)
       .end(err => {
         if (err) {
@@ -38,7 +50,19 @@ describe('POST /taskListAddNew', function() {
 
 describe('DELETE /delete_xxx', function() {
   before(function() {
-    let FAKE_DATA = { 123: { listsId: 123, title: 'helloWorld' } };
+    let FAKE_DATA = {
+      123: {
+        listId: 123,
+        title: 'helloWorld',
+        items: [
+          {
+            itemId: '0',
+            task: 'create main page',
+            done: 'true'
+          }
+        ]
+      }
+    };
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
@@ -69,7 +93,19 @@ describe('DELETE /delete_xxx', function() {
 
 describe('GET /taskList', function() {
   before(function() {
-    const FAKE_DATA = { 123: { listsId: 123, title: 'helloWorld' } };
+    const FAKE_DATA = {
+      123: {
+        listId: 123,
+        title: 'helloWorld',
+        items: [
+          {
+            itemId: '0',
+            task: 'create main page',
+            done: 'true'
+          }
+        ]
+      }
+    };
     const fakeFileReader = sandbox.stub(fs, 'readFileSync');
     fakeFileReader.returns(JSON.stringify(FAKE_DATA));
   });
@@ -83,8 +119,9 @@ describe('GET /taskList', function() {
       .get('/taskList')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '24')
+      .expect('Content-Length', '106')
       .expect(/helloWorld/)
+      .expect(/"itemId":"123_0"/)
       .end(err => {
         if (err) {
           done(err);

@@ -3,8 +3,8 @@ const CODE_OK = 200;
 const createHtml = function(taskList) {
   const template = document.querySelector('#template').innerHTML;
   const html = taskList.map(list => {
-    const { id, title } = list;
-    return template.replace(/{_id_}/g, id).replace(/{_title_}/, title);
+    const { listId, title } = list;
+    return template.replace(/{_id_}/g, listId).replace(/{_title_}/, title);
   });
 
   return html.join('\n');
