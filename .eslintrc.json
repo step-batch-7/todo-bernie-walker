@@ -86,6 +86,9 @@
         "max-statements": "off"
       }
     },
-    { "files": ["public/js/*.js"], "rules": { "no-undef": "off" } }
+    {
+      "files": ["public/js/*.js"],
+      "rules": { "no-undef": "off", "no-unused-vars": "off" }
+    }
   ]
 }
