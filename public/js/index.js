@@ -81,7 +81,7 @@ const addNewItem = function(clickedOn) {
 };
 
 const deleteTask = function(clickedOn) {
-  const idToDelete = clickedOn.id.split('_').pop;
+  const idToDelete = clickedOn.id.split('_').pop();
   const dltTaskReq = new XMLHttpRequest();
   dltTaskReq.onerror = function() {
     document.body.innerHTML = 'error while processing please reload';
