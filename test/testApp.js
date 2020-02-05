@@ -116,7 +116,8 @@ describe('DELETE /delete_xxx', function() {
 
   it('should respond with the updated task list', function(done) {
     request(generateResponse)
-      .delete('/delete_123')
+      .delete('/deleteTask')
+      .send('toDelete=123')
       .expect(200)
       .expect('Content-Type', 'application/json')
       .expect('Content-Length', '2')

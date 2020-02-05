@@ -59,7 +59,7 @@ const addNewItem = function(clickedOn) {
 };
 
 const deleteTask = function(clickedOn) {
-  const idToDelete = clickedOn.id;
+  const idToDelete = clickedOn.id.split('_').pop;
   const dltTaskReq = new XMLHttpRequest();
   dltTaskReq.onerror = function() {
     document.body.innerHTML = 'error while processing please reload';
@@ -71,8 +71,12 @@ const deleteTask = function(clickedOn) {
     }
     document.body.innerHTML = 'not deleted';
   };
-  dltTaskReq.open('DELETE', idToDelete);
-  dltTaskReq.send();
+  dltTaskReq.open('DELETE', '/deleteTask');
+  dltTaskReq.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
+  dltTaskReq.send(`toDelete=${idToDelete}`);
 };
 
 const addNewTaskToList = function() {
