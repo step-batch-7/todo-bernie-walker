@@ -69,14 +69,14 @@ describe('POST /addNewItem', function() {
     sandbox.restore();
   });
 
-  it.skip('respond with updated task list', function(done) {
+  it('respond with updated task list', function(done) {
     request(generateResponse)
       .post('/addNewItem')
       .send('title=sampleText&to=123')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '163')
-      .expect(/{"title":"sampleText"}/)
+      .expect('Content-Length', '99')
+      .expect(/"task":"sampleText"/)
       .end(err => {
         if (err) {
           done(err);

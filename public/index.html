@@ -26,12 +26,20 @@
         dlt
       </button>
     </div>
+
     <div class="items">
       {_innerHtml_}
     </div>
+
     <div class="new-item">
       <input type="text" class="new-item-title" id="itm-ip-{_id_}" />
-      <button class="add-new-item-btn" id="itm-add-{_id_}">add</button>
+      <button
+        class="add-new-item-btn"
+        id="add-item-{_id_}"
+        onclick="addNewItem(this)"
+      >
+        add
+      </button>
     </div>
   </div>
 </div>
