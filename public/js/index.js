@@ -31,6 +31,28 @@ const addTaskListToBody = function(taskList) {
   taskListArea.innerHTML = taskListHtml;
 };
 
+const deleteItem = function(clickedOn) {
+  const [, from, toDelete] = clickedOn.id.match(/.*_(\d+)_(\d+)/);
+  const dltItemReq = new XMLHttpRequest();
+
+  dltItemReq.onerror = function() {
+    document.body.innerHTML = 'error while processing please reload';
+  };
+  dltItemReq.onload = function() {
+    if (dltItemReq.status === CODE_OK) {
+      addTaskListToBody(dltItemReq.response);
+      return;
+    }
+    document.body.innerHTML = 'not deleted';
+  };
+  dltItemReq.open('DELETE', '/deleteItem');
+  dltItemReq.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
+  dltItemReq.send(`from=${from}&toDelete=${toDelete}`);
+};
+
 const addNewItem = function(clickedOn) {
   const [, itemId] = clickedOn.id.match(/.*-(\d+)/);
   const itemTitle = document.querySelector(`#itm-ip-${itemId}`).value;

@@ -87,7 +87,7 @@ describe('POST /addNewItem', function() {
   });
 });
 
-describe('DELETE /delete_xxx', function() {
+describe('DELETE /deleteTask', function() {
   before(function() {
     let FAKE_DATA = {
       123: {
@@ -121,6 +121,51 @@ describe('DELETE /delete_xxx', function() {
       .expect(200)
       .expect('Content-Type', 'application/json')
       .expect('Content-Length', '2')
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
+
+describe('DELETE /deleteItem', function() {
+  before(function() {
+    let FAKE_DATA = {
+      123: {
+        listId: 123,
+        title: 'helloWorld',
+        items: [
+          {
+            itemId: '0',
+            task: 'create main page',
+            done: 'true'
+          }
+        ]
+      }
+    };
+    const writeToFake = (path, toWrite) => {
+      FAKE_DATA = JSON.parse(toWrite);
+    };
+    sandbox.replace(fs, 'writeFileSync', writeToFake);
+    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    sandbox.replace(fs, 'readFileSync', fakeReader);
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it('should respond with the updated task list', function(done) {
+    request(generateResponse)
+      .delete('/deleteItem')
+      .send('from=123&toDelete=0')
+      .expect(200)
+      .expect('Content-Type', 'application/json')
+      .expect('Content-Length', '48')
+      .expect(/"items":\[\]/)
       .end(err => {
         if (err) {
           done(err);
@@ -179,7 +224,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '1352')
+        .expect('Content-Length', '1394')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
