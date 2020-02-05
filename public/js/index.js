@@ -31,6 +31,30 @@ const addTaskListToBody = function(taskList) {
   taskListArea.innerHTML = taskListHtml;
 };
 
+const markItem = function(clickedOn) {
+  const [, from, toMark] = clickedOn.id.match(/.*_(\d+)_(\d+)/);
+  const markItemReq = new XMLHttpRequest();
+
+  markItemReq.onerror = function() {
+    document.body.innerHTML = 'error while processing please reload';
+  };
+
+  markItemReq.onload = function() {
+    if (markItemReq.status === CODE_OK) {
+      addTaskListToBody(markItemReq.response);
+      return;
+    }
+    document.body.innerHTML = 'could not mark';
+  };
+
+  markItemReq.open('POST', '/markItem');
+  markItemReq.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
+  markItemReq.send(`from=${from}&toMark=${toMark}`);
+};
+
 const deleteItem = function(clickedOn) {
   const [, from, toDelete] = clickedOn.id.match(/.*_(\d+)_(\d+)/);
   const dltItemReq = new XMLHttpRequest();

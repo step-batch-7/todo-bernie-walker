@@ -139,9 +139,14 @@ describe('DELETE /deleteItem', function() {
         title: 'helloWorld',
         items: [
           {
-            itemId: '0',
+            itemId: '123_0',
             task: 'create main page',
             done: 'true'
+          },
+          {
+            itemId: '123_1',
+            task: 'style main page',
+            done: 'false'
           }
         ]
       }
@@ -164,8 +169,53 @@ describe('DELETE /deleteItem', function() {
       .send('from=123&toDelete=0')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '48')
-      .expect(/"items":\[\]/)
+      .expect('Content-Length', '106')
+      .expect(/123_0.*style main/)
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
+
+describe('POST /markItem', function() {
+  before(function() {
+    let FAKE_DATA = {
+      123: {
+        listId: 123,
+        title: 'helloWorld',
+        items: [
+          {
+            itemId: '0',
+            task: 'create main page',
+            done: false
+          }
+        ]
+      }
+    };
+    const writeToFake = (path, toWrite) => {
+      FAKE_DATA = JSON.parse(toWrite);
+    };
+    sandbox.replace(fs, 'writeFileSync', writeToFake);
+    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    sandbox.replace(fs, 'readFileSync', fakeReader);
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it('should respond with the updated task list', function(done) {
+    request(generateResponse)
+      .post('/markItem')
+      .send('from=123&toMark=0')
+      .expect(200)
+      .expect('Content-Type', 'application/json')
+      .expect('Content-Length', '100')
+      .expect(/"done":true/)
       .end(err => {
         if (err) {
           done(err);
