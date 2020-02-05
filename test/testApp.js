@@ -36,8 +36,47 @@ describe('POST /taskListAddNew', function() {
       .send('title=sampleText')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '163')
+      .expect('Content-Length', '159')
       .expect(/"title":"sampleText"/)
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
+
+describe('POST /addNewItem', function() {
+  before(function() {
+    let FAKE_DATA = {
+      123: {
+        listId: 123,
+        title: 'helloWorld',
+        items: []
+      }
+    };
+    const writeToFake = (path, toWrite) => {
+      FAKE_DATA = JSON.parse(toWrite);
+    };
+    sandbox.replace(fs, 'writeFileSync', writeToFake);
+    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    sandbox.replace(fs, 'readFileSync', fakeReader);
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it.skip('respond with updated task list', function(done) {
+    request(generateResponse)
+      .post('/addNewItem')
+      .send('title=sampleText&to=123')
+      .expect(200)
+      .expect('Content-Type', 'application/json')
+      .expect('Content-Length', '163')
+      .expect(/{"title":"sampleText"}/)
       .end(err => {
         if (err) {
           done(err);
@@ -99,7 +138,7 @@ describe('GET /taskList', function() {
         title: 'helloWorld',
         items: [
           {
-            itemId: '0',
+            itemId: '123_0',
             task: 'create main page',
             done: 'true'
           }
@@ -139,7 +178,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '1275')
+        .expect('Content-Length', '1352')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
