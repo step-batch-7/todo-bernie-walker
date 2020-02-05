@@ -224,7 +224,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '1394')
+        .expect('Content-Length', '1419')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
@@ -304,9 +304,8 @@ describe('handleWhenNoResponse', function() {
 describe('handleWrongMethod', function() {
   it('should respond with unprocessable entity', function(done) {
     request(generateResponse)
-      .put('/helloWorld')
+      .head('/helloWorld')
       .expect(422)
-      .expect('Bad Request')
       .end(err => {
         if (err) {
           done(err);
