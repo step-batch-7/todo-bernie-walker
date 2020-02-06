@@ -7,7 +7,7 @@ const modifyItems = function(item) {
   return innerTemplate
     .replace(/{_itmId_}/g, itemId)
     .replace(/{_item-title_}/, task)
-    .replace(/{_done_}/, doneClass);
+    .replace(/{_done_}/g, doneClass);
 };
 
 const createHtml = function(taskList) {

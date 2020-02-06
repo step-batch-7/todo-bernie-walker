@@ -5,14 +5,17 @@
 }
 
 .todo-logo {
-  border: 1px solid;
+  /* border: 1px solid; */
   font-weight: 100;
 }
 
 .new-list {
   border: 1px solid;
+  width: 98.3%;
   padding: 0.15%;
   margin: 1% auto;
+  position: fixed;
+  bottom: 0%;
   display: flex;
 }
 
@@ -30,6 +33,11 @@
 .task-list {
   border: 1px solid;
   padding: 0.15%;
+  margin: 1% auto;
+  position: fixed;
+  width: 98.3%;
+  height: 77%;
+  overflow-y: scroll;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -38,8 +46,9 @@
 .task {
   border: 1px solid;
   padding: 0.2%;
-  margin: 0.2% auto;
-  width: 48%;
+  margin: 2% auto;
+  width: 45%;
+  height: fit-content;
   letter-spacing: 0.05vw;
   font-size: 1.6vw;
 }
@@ -60,6 +69,11 @@
   padding: 0.3%;
 }
 
+.task-delete img {
+  position: relative;
+  right: 5%;
+}
+
 .new-item {
   border: 1px solid;
   padding: 0.15%;
@@ -69,14 +83,18 @@
 
 .new-item-title {
   width: 93%;
-  height: 34px;
+  height: 28px;
   font-size: 1.4vw;
 }
 
 .add-new-item-btn {
   margin-left: 0.1%;
   width: 5.8%;
-  height: 40px;
+}
+
+.add-new-item-btn img {
+  position: relative;
+  right: 11%;
 }
 
 .items {
@@ -88,16 +106,44 @@
 .item-title {
   display: inline-block;
   width: 88.9%;
+  margin: 0.5% auto;
 }
 
-.done {
-  color: rgba(0, 0, 0, 0.5);
-  font-style: italic;
-  text-decoration: line-through rgba(228, 126, 42, 0.822);
+.btn-marker {
+  opacity: 100%;
 }
 
 .item-mark,
 .item-delete {
   width: 4%;
   padding: 0.3%;
+}
+
+.buttons {
+  border-radius: 8%;
+  background-image: linear-gradient(
+    to top left,
+    rgba(180, 180, 180, 0.6) 30%,
+    rgba(233, 233, 233, 0.6)
+  );
+}
+
+.buttons:hover {
+  box-shadow: 0.5px 0.5px 1px 1px rgba(100, 100, 100, 0.3);
+}
+
+.icon {
+  opacity: 40%;
+}
+
+.done {
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  text-decoration: line-through rgba(0, 0, 0, 0.8);
+  fill: rgb(5, 129, 5, 1);
+  opacity: 100%;
+}
+
+.buttons:hover .icon {
+  opacity: 100%;
 }

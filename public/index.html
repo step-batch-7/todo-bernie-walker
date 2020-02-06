@@ -7,14 +7,18 @@
     <title>ToDo</title>
   </head>
   <body>
-    <h1 class="heading"><img alt="lg" class="todo-logo" /> ToDo</h1>
+    <h1 class="heading">
+      <img alt="lg" src="./images/logo-todo.svg" class="todo-logo" /> ToDo
+    </h1>
+
+    <div class="task-list"></div>
 
     <div class="new-list">
       <input type="text" class="new-title" />
-      <button class="add-new-button" onclick="addNewTaskToList()">add</button>
+      <button class="add-new-button buttons" onclick="addNewTaskToList()">
+        <img src="./images/icon-save.svg" alt="save" class="icon" />
+      </button>
     </div>
-
-    <div class="task-list"></div>
   </body>
 </html>
 
@@ -22,8 +26,12 @@
   <div class="task">
     <div class="task-top">
       <spawn class="task-title">{_title_}</spawn>
-      <button class="task-delete" id="delete_{_id_}" onclick="deleteTask(this)">
-        dlt
+      <button
+        class="task-delete buttons"
+        id="delete_{_id_}"
+        onclick="deleteTask(this)"
+      >
+        <img src="./images/icon-trash-can.svg" alt="dlt" class="icon" />
       </button>
     </div>
 
@@ -34,26 +42,43 @@
     <div class="new-item">
       <input type="text" class="new-item-title" id="itm-ip-{_id_}" />
       <button
-        class="add-new-item-btn"
+        class="add-new-item-btn buttons"
         id="add-item-{_id_}"
         onclick="addNewItem(this)"
       >
-        add
+        <img src="./images/icon-add.svg" alt="add" class="icon" />
       </button>
     </div>
   </div>
 </div>
 
 <div style="display: none" id="innerTemplate">
-  <spawn class="item-title {_done_}">{_item-title_}</spawn>
-  <button class="item-mark" id="mark_{_itmId_}" onclick="markItem(this)">
-    mrk
-  </button>
   <button
-    class="item-delete"
+    class="item-mark buttons"
+    id="mark_{_itmId_}"
+    onclick="markItem(this)"
+  >
+    <svg
+      fill="#00000"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      width="16px"
+      height="16px"
+      class="icon {_done_}"
+    >
+      <path
+        d="M 7.5 10.207031 L 4.792969 7.5 L 5.5 6.792969 L 7.5 8.792969 L 13.546875 2.746094 C 13.179688 2.296875 12.625 2 12 2 L 4 2 C 2.898438 2 2 2.898438 2 4 L 2 12 C 2 13.101563 2.898438 14 4 14 L 12 14 C 13.101563 14 14 13.101563 14 12 L 14 4 C 14 3.910156 13.984375 3.820313 13.972656 3.734375 Z"
+      />
+    </svg>
+  </button>
+
+  <spawn class="item-title {_done_}">{_item-title_}</spawn>
+
+  <button
+    class="item-delete buttons"
     id="deleteItm_{_itmId_}"
     onclick="deleteItem(this)"
   >
-    dlt
+    <img src="./images/icons-remove.svg" alt="rmv" class="icon" />
   </button>
 </div>
