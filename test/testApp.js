@@ -5,9 +5,9 @@ const { generateResponse } = require('../lib/handlers.js');
 
 describe('POST /taskListAddNew', function() {
   before(function() {
-    let FAKE_DATA = {
-      123: {
-        listId: 123,
+    let FAKE_DATA = [
+      {
+        listId: '123',
         title: 'helloWorld',
         items: [
           {
@@ -17,7 +17,7 @@ describe('POST /taskListAddNew', function() {
           }
         ]
       }
-    };
+    ];
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
@@ -36,7 +36,7 @@ describe('POST /taskListAddNew', function() {
       .send('title=sampleText')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '159')
+      .expect('Content-Length', '163')
       .expect(/"title":"sampleText"/)
       .end(err => {
         if (err) {
@@ -50,13 +50,13 @@ describe('POST /taskListAddNew', function() {
 
 describe('POST /addNewItem', function() {
   before(function() {
-    let FAKE_DATA = {
-      123: {
-        listId: 123,
+    let FAKE_DATA = [
+      {
+        listId: '123',
         title: 'helloWorld',
         items: []
       }
-    };
+    ];
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
@@ -75,7 +75,7 @@ describe('POST /addNewItem', function() {
       .send('title=sampleText&to=123')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '99')
+      .expect('Content-Length', '101')
       .expect(/"task":"sampleText"/)
       .end(err => {
         if (err) {
@@ -89,9 +89,9 @@ describe('POST /addNewItem', function() {
 
 describe('DELETE /deleteTask', function() {
   before(function() {
-    let FAKE_DATA = {
-      123: {
-        listId: 123,
+    let FAKE_DATA = [
+      {
+        listId: '123',
         title: 'helloWorld',
         items: [
           {
@@ -101,7 +101,7 @@ describe('DELETE /deleteTask', function() {
           }
         ]
       }
-    };
+    ];
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
@@ -133,9 +133,9 @@ describe('DELETE /deleteTask', function() {
 
 describe('DELETE /deleteItem', function() {
   before(function() {
-    let FAKE_DATA = {
-      123: {
-        listId: 123,
+    let FAKE_DATA = [
+      {
+        listId: '123',
         title: 'helloWorld',
         items: [
           {
@@ -150,7 +150,7 @@ describe('DELETE /deleteItem', function() {
           }
         ]
       }
-    };
+    ];
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
@@ -169,7 +169,7 @@ describe('DELETE /deleteItem', function() {
       .send('from=123&toDelete=0')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '106')
+      .expect('Content-Length', '108')
       .expect(/123_0.*style main/)
       .end(err => {
         if (err) {
@@ -183,9 +183,9 @@ describe('DELETE /deleteItem', function() {
 
 describe('POST /markItem', function() {
   before(function() {
-    let FAKE_DATA = {
-      123: {
-        listId: 123,
+    let FAKE_DATA = [
+      {
+        listId: '123',
         title: 'helloWorld',
         items: [
           {
@@ -195,7 +195,7 @@ describe('POST /markItem', function() {
           }
         ]
       }
-    };
+    ];
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
@@ -214,7 +214,7 @@ describe('POST /markItem', function() {
       .send('from=123&toMark=0')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '100')
+      .expect('Content-Length', '102')
       .expect(/"done":true/)
       .end(err => {
         if (err) {
@@ -228,8 +228,8 @@ describe('POST /markItem', function() {
 
 describe('GET /taskList', function() {
   before(function() {
-    const FAKE_DATA = {
-      123: {
+    const FAKE_DATA = [
+      {
         listId: 123,
         title: 'helloWorld',
         items: [
@@ -240,7 +240,7 @@ describe('GET /taskList', function() {
           }
         ]
       }
-    };
+    ];
     const fakeFileReader = sandbox.stub(fs, 'readFileSync');
     fakeFileReader.returns(JSON.stringify(FAKE_DATA));
   });
