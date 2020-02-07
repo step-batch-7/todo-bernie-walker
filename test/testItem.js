@@ -27,9 +27,9 @@ describe('Item', function() {
     });
   });
 
-  describe('.editTitle', function() {
+  describe('.setTask', function() {
     it('should update the title with the given title', function() {
-      item.setTitle('world');
+      item.setTask('world');
       assert.strictEqual(item.title, 'world');
     });
   });
