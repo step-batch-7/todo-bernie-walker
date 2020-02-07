@@ -292,7 +292,7 @@ describe('serveStatic', function() {
         .get('/css/styleIndex.css')
         .expect(200)
         .expect('Content-Type', 'text/css')
-        .expect('Content-Length', '2167')
+        .expect('Content-Length', '2279')
         .expect(/\.add-new-button/)
         .end(err => {
           if (err) {
