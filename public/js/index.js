@@ -22,7 +22,7 @@ const createHtml = function(taskList) {
       .replace(/{_title_}/, title)
       .replace(/{_innerHtml_}/, items.join('\n'));
   });
-  return html.join('\n');
+  return html.reverse().join('\n');
 };
 
 const addTaskListToBody = function(taskList) {
