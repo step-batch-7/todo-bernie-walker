@@ -36,7 +36,7 @@ describe('POST /taskListAddNew', function() {
       .send('title=sampleText')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '163')
+      .expect('Content-Length', '153')
       .expect(/"title":"sampleText"/)
       .end(err => {
         if (err) {
@@ -75,7 +75,7 @@ describe('POST /addNewItem', function() {
       .send('title=sampleText&to=123')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '101')
+      .expect('Content-Length', '95')
       .expect(/"task":"sampleText"/)
       .end(err => {
         if (err) {
@@ -170,7 +170,7 @@ describe('DELETE /deleteItem', function() {
       .expect(200)
       .expect('Content-Type', 'application/json')
       .expect('Content-Length', '108')
-      .expect(/123_0.*style main/)
+      .expect(/123_1.*style main/)
       .end(err => {
         if (err) {
           done(err);
