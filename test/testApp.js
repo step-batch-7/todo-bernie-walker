@@ -265,6 +265,48 @@ describe('POST /editTodo', function() {
   });
 });
 
+describe('POST /editItem', function() {
+  before(function() {
+    let FAKE_DATA = [
+      {
+        listId: '123',
+        title: 'helloWorld',
+        items: [
+          {
+            itemId: '123_0',
+            task: 'create main page',
+            done: 'true'
+          }
+        ]
+      }
+    ];
+    const writeToFake = (path, toWrite) => {
+      FAKE_DATA = JSON.parse(toWrite);
+    };
+    sandbox.replace(fs, 'writeFileSync', writeToFake);
+    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    sandbox.replace(fs, 'readFileSync', fakeReader);
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it('should respond with the updated task list', function(done) {
+    request(generateResponse)
+      .post('/editItem')
+      .send('title=changedText&id=123_0')
+      .expect(200)
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
+
 describe('GET /taskList', function() {
   before(function() {
     const FAKE_DATA = [

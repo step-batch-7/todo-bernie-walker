@@ -1,8 +1,32 @@
 const CODE_OK = 200;
 
-const editTodoTitle = function(clickedOn) {
+const editItem = function(editedSection) {
   document.getSelection().empty();
-  const { innerText, id } = clickedOn;
+  const { innerText, id } = editedSection;
+  const [, , itemId] = id.split('-');
+  const editItemReq = new XMLHttpRequest();
+
+  editItemReq.onerror = function() {
+    document.body.innerHTML = 'error while processing please reload';
+  };
+
+  editItemReq.onload = function() {
+    if (editItemReq.status !== CODE_OK) {
+      document.body.innerHTML = 'task not added';
+    }
+  };
+
+  editItemReq.open('POST', '/editItem');
+  editItemReq.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
+  editItemReq.send(`title=${innerText}&id=${itemId}`);
+};
+
+const editTodoTitle = function(editedSection) {
+  document.getSelection().empty();
+  const { innerText, id } = editedSection;
   const [, , todoId] = id.split('-');
   const editTitleReq = new XMLHttpRequest();
 

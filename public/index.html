@@ -87,8 +87,10 @@
 
     <spawn
       class="item-title {_done_}"
+      id="item-title-{_itmId_}"
       contenteditable="true"
       onclick="document.execCommand('selectAll')"
+      onblur="editItem(this)"
       >{_item-title_}</spawn
     >
 

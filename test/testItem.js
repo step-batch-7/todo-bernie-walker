@@ -30,7 +30,7 @@ describe('Item', function() {
   describe('.setTask', function() {
     it('should update the title with the given title', function() {
       item.setTask('world');
-      assert.strictEqual(item.title, 'world');
+      assert.strictEqual(item.task, 'world');
     });
   });
 });
