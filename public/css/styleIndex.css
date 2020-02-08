@@ -105,6 +105,7 @@ body {
 }
 
 .item-line {
+  border-bottom: 0.1vw dotted rgba(151, 139, 139, 0.404);
   padding: 0.3%;
 }
 
@@ -112,8 +113,17 @@ body {
   background-color: rgba(161, 187, 218, 0.2);
 }
 
+.modifiers {
+  visibility: hidden;
+}
+
+.item-line:hover .modifiers {
+  visibility: unset;
+}
+
 .item-title {
   display: inline-block;
+  outline: none;
   width: 88.9%;
   margin: 0.5% auto;
 }

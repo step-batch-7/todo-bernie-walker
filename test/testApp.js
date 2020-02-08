@@ -277,7 +277,6 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '2374')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
@@ -295,7 +294,6 @@ describe('serveStatic', function() {
         .get('/css/styleIndex.css')
         .expect(200)
         .expect('Content-Type', 'text/css')
-        .expect('Content-Length', '2279')
         .expect(/\.add-new-button/)
         .end(err => {
           if (err) {
@@ -307,7 +305,7 @@ describe('serveStatic', function() {
     });
   });
 
-  context('GET xmlRequests.js', function() {
+  context('GET index.js', function() {
     it('should respond with js file', function(done) {
       request(generateResponse)
         .get('/js/index.js')

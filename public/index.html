@@ -14,7 +14,7 @@
     <div class="task-list"></div>
 
     <div class="new-list">
-      <input type="text" class="new-title" />
+      <input type="text" placeholder="Add new todo here..." class="new-title" />
       <button class="add-new-button buttons" onclick="addNewTodo()">
         <img src="./images/icon-save.svg" alt="save" class="icon" />
       </button>
@@ -40,7 +40,12 @@
     </div>
 
     <div class="new-item">
-      <input type="text" class="new-item-title" id="itm-ip-{_id_}" />
+      <input
+        type="text"
+        placeholder="Add a new item here..."
+        class="new-item-title"
+        id="itm-ip-{_id_}"
+      />
       <button
         class="add-new-item-btn buttons"
         id="add-item-{_id_}"
@@ -55,7 +60,7 @@
 <div style="display: none" id="innerTemplate">
   <div class="item-line">
     <button
-      class="item-mark buttons"
+      class="item-mark buttons modifiers"
       id="mark_{_itmId_}"
       onclick="markItem(this)"
     >
@@ -76,7 +81,7 @@
     <spawn class="item-title {_done_}">{_item-title_}</spawn>
 
     <button
-      class="item-delete buttons"
+      class="item-delete buttons modifiers"
       id="deleteItm_{_itmId_}"
       onclick="deleteItem(this)"
     >
