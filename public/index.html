@@ -6,7 +6,7 @@
     <script src="./js/index.js"></script>
     <title>ToDo</title>
   </head>
-  <body>
+  <body onkeydown="blurActive()">
     <h1 class="heading">
       <img alt="lg" src="./images/logo-todo.svg" class="todo-logo" /> ToDo
     </h1>
@@ -25,7 +25,14 @@
 <div style="display: none" id="topTemplate">
   <div class="task">
     <div class="task-top">
-      <spawn class="task-title">{_title_}</spawn>
+      <spawn
+        class="task-title"
+        id="task-title-{_id_}"
+        contenteditable="true"
+        onclick="document.execCommand('selectAll')"
+        onblur="editTodoTitle(this)"
+        >{_title_}</spawn
+      >
       <button
         class="task-delete buttons"
         id="delete_{_id_}"
@@ -78,7 +85,12 @@
       </svg>
     </button>
 
-    <spawn class="item-title {_done_}">{_item-title_}</spawn>
+    <spawn
+      class="item-title {_done_}"
+      contenteditable="true"
+      onclick="document.execCommand('selectAll')"
+      >{_item-title_}</spawn
+    >
 
     <button
       class="item-delete buttons modifiers"

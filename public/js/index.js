@@ -1,5 +1,35 @@
 const CODE_OK = 200;
 
+const editTodoTitle = function(clickedOn) {
+  document.getSelection().empty();
+  const { innerText, id } = clickedOn;
+  const [, , todoId] = id.split('-');
+  const editTitleReq = new XMLHttpRequest();
+
+  editTitleReq.onerror = function() {
+    document.body.innerHTML = 'error while processing please reload';
+  };
+
+  editTitleReq.onload = function() {
+    if (editTitleReq.status !== CODE_OK) {
+      document.body.innerHTML = 'task not added';
+    }
+  };
+
+  editTitleReq.open('POST', '/editTodo');
+  editTitleReq.setRequestHeader(
+    'Content-Type',
+    'application/x-www-form-urlencoded'
+  );
+  editTitleReq.send(`title=${innerText}&id=${todoId}`);
+};
+
+const blurActive = function() {
+  if (event.key === 'Escape') {
+    document.activeElement.blur();
+  }
+};
+
 const modifyItems = function(item) {
   const innerTemplate = document.querySelector('#innerTemplate').innerHTML;
   const { itemId, done, task } = item;

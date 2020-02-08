@@ -59,6 +59,7 @@ body {
 }
 
 .task-title {
+  outline: none;
   display: inline-block;
   padding: 0.3%;
   width: 94%;
@@ -101,7 +102,7 @@ body {
   padding: 0.3%;
   margin-top: 0.3%;
   overflow-y: scroll;
-  max-height: 14vw;
+  max-height: 14.6vw;
 }
 
 .item-line {

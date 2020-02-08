@@ -1,5 +1,5 @@
-const request = require('supertest');
 const fs = require('fs');
+const request = require('supertest');
 const sandbox = require('sinon').createSandbox();
 const { generateResponse } = require('../lib/handlers.js');
 
@@ -219,6 +219,42 @@ describe('POST /markItem', function() {
       .expect('Content-Type', 'application/json')
       .expect('Content-Length', '106')
       .expect(/"done":true/)
+      .end(err => {
+        if (err) {
+          done(err);
+          return;
+        }
+        done();
+      });
+  });
+});
+
+describe('POST /editTodo', function() {
+  before(function() {
+    let FAKE_DATA = [
+      {
+        listId: '123',
+        title: 'helloWorld',
+        items: []
+      }
+    ];
+    const writeToFake = (path, toWrite) => {
+      FAKE_DATA = JSON.parse(toWrite);
+    };
+    sandbox.replace(fs, 'writeFileSync', writeToFake);
+    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    sandbox.replace(fs, 'readFileSync', fakeReader);
+  });
+
+  after(function() {
+    sandbox.restore();
+  });
+
+  it('should respond with the updated task list', function(done) {
+    request(generateResponse)
+      .post('/editTodo')
+      .send('title=changedText&id=123')
+      .expect(200)
       .end(err => {
         if (err) {
           done(err);
