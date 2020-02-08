@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nyc mocha",
     "eslint": "eslint . --ext .js",
-    "preCommit": "npm test && npm run eslint"
+    "preCommit": "npm test && npm run eslint",
+    "start": "nodemon server.js 3000"
   },
   "repository": {
     "type": "git",
