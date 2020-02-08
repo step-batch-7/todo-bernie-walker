@@ -32,7 +32,7 @@ const addTaskListToBody = function(taskList) {
 };
 
 const markItem = function(clickedOn) {
-  const [, from, toMark] = clickedOn.id.match(/.*_(\d+)_(\d+)/);
+  const [, toMark] = clickedOn.id.match(/.*_(\d+_\d+)/);
   const markItemReq = new XMLHttpRequest();
 
   markItemReq.onerror = function() {
@@ -52,11 +52,11 @@ const markItem = function(clickedOn) {
     'Content-Type',
     'application/x-www-form-urlencoded'
   );
-  markItemReq.send(`from=${from}&toMark=${toMark}`);
+  markItemReq.send(`toMark=${toMark}`);
 };
 
 const deleteItem = function(clickedOn) {
-  const [, from, toDelete] = clickedOn.id.match(/.*_(\d+)_(\d+)/);
+  const [, toDelete] = clickedOn.id.match(/.*_(\d+_\d+)/);
   const dltItemReq = new XMLHttpRequest();
 
   dltItemReq.onerror = function() {
@@ -74,13 +74,13 @@ const deleteItem = function(clickedOn) {
     'Content-Type',
     'application/x-www-form-urlencoded'
   );
-  dltItemReq.send(`from=${from}&toDelete=${toDelete}`);
+  dltItemReq.send(`toDelete=${toDelete}`);
 };
 
 const addNewItem = function(clickedOn) {
-  const [, itemId] = clickedOn.id.match(/.*-(\d+)/);
-  const itemTitle = document.querySelector(`#itm-ip-${itemId}`).value;
-  document.querySelector(`#itm-ip-${itemId}`).value = '';
+  const [, todoId] = clickedOn.id.match(/.*-(\d+)/);
+  const itemTitle = document.querySelector(`#itm-ip-${todoId}`).value;
+  document.querySelector(`#itm-ip-${todoId}`).value = '';
   const addItemReq = new XMLHttpRequest();
 
   addItemReq.onerror = function() {
@@ -101,10 +101,10 @@ const addNewItem = function(clickedOn) {
     'Content-Type',
     'application/x-www-form-urlencoded'
   );
-  addItemReq.send(`title=${itemTitle}&to=${itemId}`);
+  addItemReq.send(`title=${itemTitle}&to=${todoId}`);
 };
 
-const deleteTask = function(clickedOn) {
+const deleteTodo = function(clickedOn) {
   const idToDelete = clickedOn.id.split('_').pop();
   const dltTaskReq = new XMLHttpRequest();
   dltTaskReq.onerror = function() {
@@ -117,7 +117,7 @@ const deleteTask = function(clickedOn) {
     }
     document.body.innerHTML = 'not deleted';
   };
-  dltTaskReq.open('DELETE', '/deleteTask');
+  dltTaskReq.open('DELETE', '/deleteTodo');
   dltTaskReq.setRequestHeader(
     'Content-Type',
     'application/x-www-form-urlencoded'
@@ -125,7 +125,7 @@ const deleteTask = function(clickedOn) {
   dltTaskReq.send(`toDelete=${idToDelete}`);
 };
 
-const addNewTaskToList = function() {
+const addNewTodo = function() {
   const title = document.querySelector('.new-title').value;
   document.querySelector('.new-title').value = '';
   const addTaskReq = new XMLHttpRequest();
@@ -143,7 +143,7 @@ const addNewTaskToList = function() {
     document.body.innerHTML = 'task not added';
   };
 
-  addTaskReq.open('POST', '/taskListAddNew');
+  addTaskReq.open('POST', '/addNewTodo');
   addTaskReq.setRequestHeader(
     'Content-Type',
     'application/x-www-form-urlencoded'

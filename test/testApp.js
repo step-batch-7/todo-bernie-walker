@@ -3,7 +3,7 @@ const fs = require('fs');
 const sandbox = require('sinon').createSandbox();
 const { generateResponse } = require('../lib/handlers.js');
 
-describe('POST /taskListAddNew', function() {
+describe('POST /addNewTodo', function() {
   before(function() {
     let FAKE_DATA = [
       {
@@ -18,11 +18,14 @@ describe('POST /taskListAddNew', function() {
         ]
       }
     ];
+
     const writeToFake = (path, toWrite) => {
       FAKE_DATA = JSON.parse(toWrite);
     };
     sandbox.replace(fs, 'writeFileSync', writeToFake);
-    const fakeReader = () => JSON.stringify(FAKE_DATA);
+    const fakeReader = () => {
+      return JSON.stringify(FAKE_DATA);
+    };
     sandbox.replace(fs, 'readFileSync', fakeReader);
   });
 
@@ -32,7 +35,7 @@ describe('POST /taskListAddNew', function() {
 
   it('respond with updated task list', function(done) {
     request(generateResponse)
-      .post('/taskListAddNew')
+      .post('/addNewTodo')
       .send('title=sampleText')
       .expect(200)
       .expect('Content-Type', 'application/json')
@@ -75,7 +78,7 @@ describe('POST /addNewItem', function() {
       .send('title=sampleText&to=123')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '95')
+      .expect('Content-Length', '101')
       .expect(/"task":"sampleText"/)
       .end(err => {
         if (err) {
@@ -87,7 +90,7 @@ describe('POST /addNewItem', function() {
   });
 });
 
-describe('DELETE /deleteTask', function() {
+describe('DELETE /deleteTodo', function() {
   before(function() {
     let FAKE_DATA = [
       {
@@ -116,7 +119,7 @@ describe('DELETE /deleteTask', function() {
 
   it('should respond with the updated task list', function(done) {
     request(generateResponse)
-      .delete('/deleteTask')
+      .delete('/deleteTodo')
       .send('toDelete=123')
       .expect(200)
       .expect('Content-Type', 'application/json')
@@ -166,7 +169,7 @@ describe('DELETE /deleteItem', function() {
   it('should respond with the updated task list', function(done) {
     request(generateResponse)
       .delete('/deleteItem')
-      .send('from=123&toDelete=0')
+      .send('toDelete=123_0')
       .expect(200)
       .expect('Content-Type', 'application/json')
       .expect('Content-Length', '108')
@@ -189,7 +192,7 @@ describe('POST /markItem', function() {
         title: 'helloWorld',
         items: [
           {
-            itemId: '0',
+            itemId: '123_0',
             task: 'create main page',
             done: false
           }
@@ -211,10 +214,10 @@ describe('POST /markItem', function() {
   it('should respond with the updated task list', function(done) {
     request(generateResponse)
       .post('/markItem')
-      .send('from=123&toMark=0')
+      .send('toMark=123_0')
       .expect(200)
       .expect('Content-Type', 'application/json')
-      .expect('Content-Length', '102')
+      .expect('Content-Length', '106')
       .expect(/"done":true/)
       .end(err => {
         if (err) {
@@ -274,7 +277,7 @@ describe('serveStatic', function() {
         .get('/')
         .expect(200)
         .expect('Content-Type', 'text/html')
-        .expect('Content-Length', '2380')
+        .expect('Content-Length', '2374')
         .expect(/ToDo/)
         .end(err => {
           if (err) {
