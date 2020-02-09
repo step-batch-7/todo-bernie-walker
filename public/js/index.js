@@ -1,5 +1,26 @@
 const CODE_OK = 200;
 
+const searchItems = function(searchSection) {
+  const matcher = new RegExp(searchSection.value, 'i');
+  const [, ...taskSections] = Array.from(
+    document.querySelectorAll('.task')
+  ).reverse();
+  taskSections.forEach(section => {
+    const [, items] = section.children;
+
+    const itemsText = Array.from(items.children).map(itm => {
+      return itm.innerText;
+    });
+
+    if (itemsText.some(txt => txt.match(matcher))) {
+      section.removeAttribute('style');
+      return;
+    }
+
+    section.setAttribute('style', 'display:none');
+  });
+};
+
 const searchTodo = function(searchSection) {
   const matcher = new RegExp(searchSection.value, 'i');
   const [, ...taskSections] = Array.from(
