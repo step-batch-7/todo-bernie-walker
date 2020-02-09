@@ -66,6 +66,15 @@
 
 <div style="display: none" id="innerTemplate">
   <div class="item-line">
+    <spawn
+      class="item-title {_done_}"
+      id="item-title-{_itmId_}"
+      contenteditable="true"
+      onclick="document.execCommand('selectAll')"
+      onblur="editItem(this)"
+      >{_item-title_}</spawn
+    >
+
     <button
       class="item-mark buttons modifiers"
       id="mark_{_itmId_}"
@@ -84,15 +93,6 @@
         />
       </svg>
     </button>
-
-    <spawn
-      class="item-title {_done_}"
-      id="item-title-{_itmId_}"
-      contenteditable="true"
-      onclick="document.execCommand('selectAll')"
-      onblur="editItem(this)"
-      >{_item-title_}</spawn
-    >
 
     <button
       class="item-delete buttons modifiers"
