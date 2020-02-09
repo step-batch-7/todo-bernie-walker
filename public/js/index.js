@@ -1,5 +1,22 @@
 const CODE_OK = 200;
 
+const searchTodo = function(searchSection) {
+  const matcher = new RegExp(searchSection.value, 'i');
+  const [, ...taskSections] = Array.from(
+    document.querySelectorAll('.task')
+  ).reverse();
+  taskSections.forEach(section => {
+    const [taskTop] = section.children;
+
+    if (taskTop.innerText.match(matcher)) {
+      section.removeAttribute('style');
+      return;
+    }
+
+    section.setAttribute('style', 'display:none');
+  });
+};
+
 const editItem = function(editedSection) {
   document.getSelection().empty();
   const { innerText, id } = editedSection;

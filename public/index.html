@@ -9,6 +9,12 @@
   <body onkeydown="blurActive()">
     <h1 class="heading">
       <img alt="lg" src="./images/logo-todo.svg" class="todo-logo" /> ToDo
+      <input
+        type="text"
+        class="todo-search-bar"
+        placeholder="search todo"
+        oninput="searchTodo(this)"
+      />
     </h1>
 
     <div class="task-list"></div>
