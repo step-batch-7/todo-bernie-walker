@@ -168,12 +168,18 @@ const deleteItem = function(clickedOn) {
   dltItemReq.send(`toDelete=${toDelete}`);
 };
 
+// eslint-disable-next-line max-statements
 const addNewItem = function(clickedOn) {
   const [, todoId] = clickedOn.id.match(/.*-(\d+)/);
   const itemTitle = document.querySelector(`#itm-ip-${todoId}`).value;
   document.querySelector(`#itm-ip-${todoId}`).value = '';
-  const addItemReq = new XMLHttpRequest();
 
+  if (itemTitle.match(/^\s*$/)) {
+    alert('enter the task');
+    return;
+  }
+
+  const addItemReq = new XMLHttpRequest();
   addItemReq.onerror = function() {
     document.body.innerHTML = 'error while processing please reload';
   };
@@ -216,11 +222,17 @@ const deleteTodo = function(clickedOn) {
   dltTaskReq.send(`toDelete=${idToDelete}`);
 };
 
+// eslint-disable-next-line max-statements
 const addNewTodo = function() {
   const title = document.querySelector('.new-title').value;
   document.querySelector('.new-title').value = '';
-  const addTaskReq = new XMLHttpRequest();
 
+  if (title.match(/^\s*$/)) {
+    alert('enter the todo title');
+    return;
+  }
+
+  const addTaskReq = new XMLHttpRequest();
   addTaskReq.onerror = function() {
     document.body.innerHTML = 'error while processing please reload';
   };
