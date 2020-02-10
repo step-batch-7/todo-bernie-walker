@@ -12,12 +12,11 @@ const searchItems = function(searchSection) {
       return itm.innerText;
     });
 
-    if (itemsText.some(txt => txt.match(matcher))) {
-      section.removeAttribute('style');
-      return;
-    }
-
     section.setAttribute('style', 'display:none');
+
+    if (!itemsText.length || itemsText.some(txt => txt.match(matcher))) {
+      section.removeAttribute('style');
+    }
   });
 };
 
