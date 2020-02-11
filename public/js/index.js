@@ -1,41 +1,5 @@
 const CODE_OK = 200;
-
-const searchItems = function(searchSection) {
-  const matcher = new RegExp(searchSection.value, 'i');
-  const [, ...taskSections] = Array.from(
-    document.querySelectorAll('.task')
-  ).reverse();
-  taskSections.forEach(section => {
-    const [, items] = section.children;
-
-    const itemsText = Array.from(items.children).map(itm => {
-      return itm.innerText;
-    });
-
-    section.setAttribute('style', 'display:none');
-
-    if (!itemsText.length || itemsText.some(txt => txt.match(matcher))) {
-      section.removeAttribute('style');
-    }
-  });
-};
-
-const searchTodo = function(searchSection) {
-  const matcher = new RegExp(searchSection.value, 'i');
-  const [, ...taskSections] = Array.from(
-    document.querySelectorAll('.task')
-  ).reverse();
-  taskSections.forEach(section => {
-    const [taskTop] = section.children;
-
-    if (taskTop.innerText.match(matcher)) {
-      section.removeAttribute('style');
-      return;
-    }
-
-    section.setAttribute('style', 'display:none');
-  });
-};
+let TODO_LIST = [];
 
 const modifyItems = function(item) {
   const innerTemplate = document.querySelector('#innerTemplate').innerHTML;
@@ -62,10 +26,30 @@ const createHtml = function(taskList) {
   return html.reverse().join('\n');
 };
 
-const addTaskListToBody = function(taskList) {
+const addTaskListToBody = function(taskList = TODO_LIST) {
   const taskListArea = document.querySelector('.task-list');
-  const taskListHtml = createHtml(JSON.parse(taskList));
+  const taskListHtml = createHtml(taskList);
   taskListArea.innerHTML = taskListHtml;
+};
+
+const searchItems = function(searchSection) {
+  if (searchSection.value === '') {
+    addTaskListToBody();
+    return;
+  }
+  const matcher = new RegExp(searchSection.value, 'i');
+  const matchedList = TODO_LIST.filter(todo =>
+    todo.items.some(item => item.task.match(matcher))
+  );
+  addTaskListToBody(matchedList);
+};
+
+const searchTodo = function(searchSection) {
+  const matcher = new RegExp(searchSection.value, 'i');
+
+  const matchedList = TODO_LIST.filter(todo => todo.title.match(matcher));
+
+  addTaskListToBody(matchedList);
 };
 
 const sendXHR = function(method, url, message) {
@@ -77,7 +61,8 @@ const sendXHR = function(method, url, message) {
 
   xhr.onload = () => {
     if (xhr.status === CODE_OK) {
-      addTaskListToBody(xhr.response);
+      TODO_LIST = JSON.parse(xhr.response);
+      addTaskListToBody();
       return;
     }
     document.body.innerHTML = '<h3>Bad Request</h3>';
